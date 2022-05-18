@@ -31,7 +31,7 @@ public class UserController {
         merchant.setFirstName(registerRequest.getFirstName());
         merchant.setLastName(registerRequest.getLastName());
         merchant.setNumTel(registerRequest.getNumTel());
-        merchant.setSolde(registerRequest.getSolde());
+       // merchant.setSolde(registerRequest.getSolde());
         merchant.setUrlImage(registerRequest.getUrlImage());
         merchant.setAccount(account);
         return new ResponseEntity<>(userService.saveUser(merchant)

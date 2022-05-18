@@ -1,9 +1,12 @@
 package scanner.projet.model.bo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,17 +31,19 @@ public class User extends Person implements Serializable {
         this.transactionSet = transactionSet;
     }
 
-    private Double solde;
+    @OneToMany(mappedBy = "user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Wallet> wallets=new HashSet<>();
 
     public User() {
     }
 
-    public Double getSolde() {
-        return solde;
+    public Set<Wallet> getWallets() {
+        return wallets;
     }
 
-    public void setSolde(Double solde) {
-        this.solde = solde;
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
     public void setAccount(Account account) {

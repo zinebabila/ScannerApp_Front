@@ -39,7 +39,10 @@ userRepostory.deleteById(id);
         Account a = accountService.getAccount(id);
         return userRepostory.findUserByAccount(a);
     }
-
+    @Override
+    public User getUser(Long id) {
+        return userRepostory.findById(id).get();
+    }
     @Override
     public Collection<User> listUsers() {
         return (Collection<User>) userRepostory.findAll();
