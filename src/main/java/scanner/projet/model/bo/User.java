@@ -20,7 +20,7 @@ public class User extends Person implements Serializable {
     @OneToOne
     @JsonIgnore
     private Account account;
-@OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     private Set<Transaction> transactionSet;
 
     public Set<Transaction> getTransactionSet() {

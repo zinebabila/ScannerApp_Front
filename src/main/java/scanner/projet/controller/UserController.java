@@ -31,6 +31,7 @@ public class UserController {
         merchant.setFirstName(registerRequest.getFirstName());
         merchant.setLastName(registerRequest.getLastName());
         merchant.setNumTel(registerRequest.getNumTel());
+        merchant.setAdresse(registerRequest.getAdresse());
        // merchant.setSolde(registerRequest.getSolde());
         merchant.setUrlImage(registerRequest.getUrlImage());
         merchant.setAccount(account);

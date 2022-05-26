@@ -17,6 +17,7 @@ public class RegisterRequest implements Serializable {
     private Double solde;
     private String urlImage;
     private String password;
+    private String adresse;
 
 
 }

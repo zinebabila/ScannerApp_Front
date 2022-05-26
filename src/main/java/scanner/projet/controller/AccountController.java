@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import scanner.projet.model.bo.Account;
+import scanner.projet.model.bo.User;
 import scanner.projet.service.implementation.AccountService;
+import scanner.projet.service.implementation.UserService;
 
 import java.util.List;
 @RestController
@@ -14,6 +16,8 @@ import java.util.List;
 public class AccountController {
     @Autowired
     AccountService accountService;
+    @Autowired
+    UserService userService;
     @PostMapping
     public Account addAccount(@RequestBody Account c)
     {
@@ -22,14 +26,24 @@ public class AccountController {
 
     @GetMapping("/getAll")
     public List<Account> listAccount() {   return (List<Account>) accountService.listAccounts();}
-
     @GetMapping(path="/getOne/{id}")
     public Account getAccount(@PathVariable("id") Long idCat) {
         return accountService.getAccount(idCat);
     }
     @PutMapping("/update")
     public Account updateAccount(@RequestBody Account c){
-        return  accountService.updateAccount(c);
+        System.out.println(c);
+        Account account=accountService.getAccount(c.getId());
+                User user= userService.getUser(c.getUser().getId());
+        user.setAdresse(c.getUser().getAdresse());
+        user.setFirstName(c.getUser().getFirstName());
+        user.setLastName(c.getUser().getLastName());
+        user.setNumTel(c.getUser().getNumTel());
+        user.setUrlImage(c.getUser().getUrlImage());
+        account.setUser(user);
+
+        return accountService.updateAccount(account) ;
+     //   return  accountService.updateAccount(c);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteAccount(@PathVariable("id") Long idCat){

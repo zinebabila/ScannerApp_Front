@@ -50,6 +50,14 @@ public abstract class Person {
         this.urlImage = urlImage;
     }
 
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
     @Id
     @SequenceGenerator(
             name = "person_sequence",
@@ -69,4 +77,6 @@ public abstract class Person {
     @Column(length = 14)
     private String numTel;
     private String urlImage;
+    private String adresse;
+
 }
