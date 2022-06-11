@@ -5,11 +5,15 @@ package scanner.projet.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import scanner.projet.model.bo.Account;
+import scanner.projet.model.bo.Image;
 import scanner.projet.model.bo.User;
 import scanner.projet.service.implementation.AccountService;
+import scanner.projet.service.implementation.ImageService;
 import scanner.projet.service.implementation.UserService;
 
+import java.io.IOException;
 import java.util.List;
 @RestController
 @RequestMapping("/Account")
@@ -18,6 +22,8 @@ public class AccountController {
     AccountService accountService;
     @Autowired
     UserService userService;
+    @Autowired
+    ImageService imageService;
     @PostMapping
     public Account addAccount(@RequestBody Account c)
     {
@@ -31,19 +37,27 @@ public class AccountController {
         return accountService.getAccount(idCat);
     }
     @PutMapping("/update")
-    public Account updateAccount(@RequestBody Account c){
-        System.out.println(c);
-        Account account=accountService.getAccount(c.getId());
-                User user= userService.getUser(c.getUser().getId());
-        user.setAdresse(c.getUser().getAdresse());
-        user.setFirstName(c.getUser().getFirstName());
-        user.setLastName(c.getUser().getLastName());
-        user.setNumTel(c.getUser().getNumTel());
-        user.setUrlImage(c.getUser().getUrlImage());
-        account.setUser(user);
+    public Account updateAccount(
+            @RequestParam("account") Long c,
+            @RequestParam("first") String first,
+            @RequestParam("last")String last,
+            @RequestParam("Phone")String phone,
+            @RequestParam("adresse")String adresse,
+            @RequestParam("imageFile") MultipartFile file) throws IOException {
+        System.out.println("here update account ");
+       Image im= imageService.uplaodImage(file);
+       Account account=accountService.getAccount(c);
+               User user= userService.getUserAc(c);
+        user.setAdresse(adresse);
+        user.setFirstName(first);
+        user.setLastName(last);
+        user.setNumTel(phone);
 
-        return accountService.updateAccount(account) ;
-     //   return  accountService.updateAccount(c);
+user.setImage(im);
+        User u=userService.updateUser(user) ;
+ account.setUser(u);
+
+       return  accountService.updateAccount(account);
     }
     @DeleteMapping("/delete/{id}")
     public void deleteAccount(@PathVariable("id") Long idCat){

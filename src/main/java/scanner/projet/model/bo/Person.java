@@ -2,7 +2,9 @@ package scanner.projet.model.bo;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -42,12 +44,12 @@ public abstract class Person {
         this.numTel = numTel;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public Image getImage() {
+        return image;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public String getAdresse() {
@@ -76,7 +78,8 @@ public abstract class Person {
     private String lastName;
     @Column(length = 14)
     private String numTel;
-    private String urlImage;
+    @OneToOne
+    private Image image;
     private String adresse;
 
 }

@@ -26,6 +26,25 @@ public class Currency implements Serializable {
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Wallet> wallets=new HashSet<>();
+    @Column(length = 5)
+    private String symbol;
+
+    public Set<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
     public Long getId() {
         return id;
     }
