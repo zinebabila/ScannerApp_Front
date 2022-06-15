@@ -24,7 +24,7 @@ public class ImageService implements IImageService {
     public Image saveImage(Image a) {
         System.out.println("*** save image .......");
         a=imageRepository.save(a);
-        a.setUrl("http://192.168.86.23:9090/images/get/"+a.getId());
+        a.setUrl("http://192.168.86.23:9099/images/get/"+a.getId());
         return imageRepository.save(a);
     }
 
