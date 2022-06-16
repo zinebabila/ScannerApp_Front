@@ -28,6 +28,17 @@ public class Currency implements Serializable {
     private Set<Wallet> wallets=new HashSet<>();
     @Column(length = 5)
     private String symbol;
+    @OneToOne(mappedBy = "currency")
+    @JsonIgnore
+    public Transaction transaction;
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
 
     public Set<Wallet> getWallets() {
         return wallets;
